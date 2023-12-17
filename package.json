@@ -1,0 +1,24 @@
+{
+  "name": "ep09",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "static-server pages",
+    "build": "rm -rf dist && node ./scripts/build.js",
+    "serve": "static-server dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jiwoo",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "mustache": "^4.2.0",
+    "static-server": "^2.2.1"
+  },
+  "devDependencies": {
+    "front-matter": "^4.0.2",
+    "showdown": "^2.1.0"
+  }
+}

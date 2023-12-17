@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ site.title }}</title>
+  </head>
+  <body>
+    <h1>Welcome to {{site.title}}</h1>
+    <a href="/about">Read about me</a>
+
+    <p>Recent Posts</p>
+    {{#recentPosts}}
+    <p>
+      <a href="{{path}}">{{title}}</a>
+    </p>
+    {{/recentPosts}}
+  </body>
+</html>
