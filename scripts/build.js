@@ -14,6 +14,7 @@ import frontMatter from "front-matter";
 // md를 html로 변환
 import showdown from "showdown";
 
+const ASSETS = config.build.assets;
 const DIST = config.build.dist;
 const PAGES = config.build.pages;
 const CONTENTS = config.build.contents;
@@ -42,17 +43,12 @@ async function getRecentPosts() {
 }
 
 async function buildHtmlFiles() {
-  const files = fs.readdirSync(PAGES);
-
+  const files = await fs.readdir(PAGES);
   for (const file of files) {
     if (file === "index.html") {
-      // file을 -위치에 복사하기
       await renderFile(`${PAGES}/${file}`, `${DIST}/${file}`);
     } else {
-      // index.html에 아니라면
-      // 파일 이름을 폴더 이름으로 따기 ex) about.html
       const folderName = file.split(".html")[0];
-
       await fs.mkdir(`${DIST}/${folderName}`);
       await renderFile(`${PAGES}/${file}`, `${DIST}/${folderName}/index.html`);
     }
@@ -78,11 +74,18 @@ async function buildContentsFiles() {
   }
 }
 
+async function copyAssets() {
+  const files = await fs.readdir(ASSETS);
+  for (const file of files) {
+    await fs.copy(`${ASSETS}/${file}`, `${DIST}/${file}`);
+  }
+}
+
 async function build() {
-  await fs.mkdirSync(DIST);
+  await fs.mkdir(DIST);
 
+  await copyAssets();
   await buildHtmlFiles();
-
   await buildContentsFiles();
 }
 
